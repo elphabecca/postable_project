@@ -31,35 +31,37 @@ def create_bday_dict(file):
         del words [3]
         del words[1]
 
+        if words[7] == "Birthday":
+            continue
+
         try:
+
             name = words[0].rstrip() + ' ' + words[1].rstrip()
-            if words[7] == "Birthday":
-                continue
             for i, word in enumerate(words):
                 if "@" in word:
                     index = i + 1
                     bday = words[index]
 
-            if bday:
-                if type(bday) == str:
-                    bday = datetime.strptime(bday, "%B %d").date()
-                bday_dict[name] = bday
+                    if bday:
+                        if type(bday) == str:
+                            bday = datetime.strptime(bday, "%B %d").date()
+                        bday_dict[name] = bday
 
-            
-            p_name = words[2].rstrip() + ' ' + words[3].rstrip()
-            p_bday = words[index + 1]
+                
+                    p_name = words[2].rstrip() + ' ' + words[3].rstrip()
+                    p_bday = words[index + 1]
 
-            if p_bday and p_name != ' ':
-                p_bday = datetime.strptime(p_bday, "%B %d").date()
-                bday_dict[p_name] = p_bday
+                    if p_bday and p_name != ' ':
+                        p_bday = datetime.strptime(p_bday, "%B %d").date()
+                        bday_dict[p_name] = p_bday
 
-            kid1 = words[index + 2]
-            kid1_bday = words[index + 3]
-            if kid1 and kid1_bday:
-                kid1_bday = kid_bday_date_conversion(kid1_bday)
-                if kid1_bday == "Invalid Format":
-                    continue
-                bday_dict[kid1] = kid1_bday
+                    kid1 = words[index + 2]
+                    kid1_bday = words[index + 3]
+                    if kid1 and kid1_bday:
+                        kid1_bday = kid_bday_date_conversion(kid1_bday)
+                        if kid1_bday == "Invalid Format":
+                            continue
+                        bday_dict[kid1] = kid1_bday
             else:
                 continue
 
